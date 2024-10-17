@@ -1,4 +1,6 @@
-user_input = input("Enter the word that you would like to reverse ")
-reverse_word = user_input[::-1]
-print(f"This is your word in reverse:{reverse_word}")
-
+print("Welcome to the Magic Reverser Thingy!\n")
+user_input = input("Please enter a word or phrase that you would like to reverse: ")
+print()
+print("working.... beep boop\n........Ta-da!\n")
+print(f"Here it is: {user_input[::-1].title()}\n")
+print("Insert your coin to try again.")
