@@ -1,3 +1,4 @@
+#print intro and request user input
 print("Welcome to the Spellchecker")
 
 while True:
