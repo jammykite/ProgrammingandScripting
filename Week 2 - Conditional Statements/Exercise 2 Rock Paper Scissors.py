@@ -1,12 +1,17 @@
+#while true creates a loop
 while True:
+    #import random to allow CPU choice to be randomised
  import random
+    #print game title
  print ('Rock! Paper! Scissors!')
  print('New Game')
+    #define player choice, CPU choice and moves
  player_choice = input('Enter your choice: ').title()
  moves = ('Rock', 'Paper', 'Scissors')
  computer_choice = random.choice(moves)
  print("CPU chose:", computer_choice)
 
+#define game outcomes and print
  if computer_choice == player_choice:
      print("It's a tie!")
  elif (player_choice == 'rock' and computer_choice == 'scissors'):
