@@ -44,8 +44,11 @@ else:
         "Shield Bash": 10
     }
 
+# Initialize player level
+player_level = 1
+
 print(f"\nWelcome, {player_name} the {player_class}!")
-print(f"Stats - Health: {player_health}, Attack: {player_attack}, Defense: {player_defense}\n")
+print(f"Stats - Level: {player_level}, Health: {player_health}, Attack: {player_attack}, Defense: {player_defense}\n")
 
 print(f"{player_name} Is walking through a forest..")
 
@@ -55,47 +58,74 @@ def roll_dice(sides=6):
     return random.randint(1, sides)
 
 
-# Create a simple enemy with unique attacks
-def create_enemy():
+# Create an enemy and scale its stats based on player level
+def create_enemy(player_level):
     enemies = [
-        {"name": "Goblin", "health": 35, "attack": 10, "defense": 5, "attacks": {"Claw Swipe": 8, "Poison Spit": 12}},
-        {"name": "Orc", "health": 60, "attack": 12, "defense": 7, "attacks": {"Club Smash": 15, "War Cry": 5}},
-        {"name": "Dark Wizard", "health": 50, "attack": 15, "defense": 3, "attacks": {"Shadow Bolt": 20, "Curse": 10}}
+        {"name": "Goblin", "base_health": 35, "base_attack": 10, "base_defense": 5, "attacks": {"Claw Swipe": 8, "Poison Spit": 12}},
+        {"name": "Orc", "base_health": 60, "base_attack": 12, "base_defense": 7, "attacks": {"Club Smash": 15, "War Cry": 5}},
+        {"name": "Dark Wizard", "base_health": 50, "base_attack": 15, "base_defense": 3, "attacks": {"Shadow Bolt": 20, "Curse": 10}}
     ]
-    return random.choice(enemies)
+    enemy = random.choice(enemies)
+    # Scale enemy stats based on player level
+    enemy['health'] = int(enemy['base_health'] * (1 + player_level * 0.1))
+    enemy['attack'] = int(enemy['base_attack'] * (1 + player_level * 0.1))
+    enemy['defense'] = int(enemy['base_defense'] * (1 + player_level * 0.1))
+    return enemy
 
 
-# Function to find treasure
-def find_treasure():
-    treasures = [
+# Function to find treasure based on player level
+def find_treasure(player_level):
+    # Basic treasure for lower levels
+    basic_treasures = [
         {"type": "Health Potion", "heal": 20},
         {"type": "Super Potion", "heal": 50},
         {"type": "Enchanted Sword", "attack_increase": 5},
         {"type": "Magic Shield", "defense_increase": 3}
     ]
-    return random.choice(treasures)
+
+    # Advanced treasures for higher levels
+    advanced_treasures = [
+        {"type": "Greater Health Potion", "heal": 100},
+        {"type": "Legendary Sword", "attack_increase": 15},
+        {"type": "Mystic Armor", "defense_increase": 10},
+        {"type": "Phoenix Feather", "heal": player_health // 2}  # Heals half of max health
+    ]
+
+    # Determine treasure tier based on player level
+    if player_level >= 5:
+        return random.choice(advanced_treasures)
+    else:
+        return random.choice(basic_treasures)
 
 
 # Process treasure effects
 def apply_treasure(treasure, player_health, player_attack, player_defense):
     if "heal" in treasure:
         player_health += treasure["heal"]
-        print(
-            f"You found a {treasure['type']}! It heals you by {treasure['heal']} health points. Your health is now {player_health}.")
+        print(f"You found a {treasure['type']}! It heals you by {treasure['heal']} health points. Your health is now {player_health}.")
     elif "attack_increase" in treasure:
         player_attack += treasure["attack_increase"]
-        print(
-            f"You found an {treasure['type']}! Your attack increases by {treasure['attack_increase']}. Your attack is now {player_attack}.")
+        print(f"You found an {treasure['type']}! Your attack increases by {treasure['attack_increase']}. Your attack is now {player_attack}.")
     elif "defense_increase" in treasure:
         player_defense += treasure["defense_increase"]
-        print(
-            f"You found a {treasure['type']}! Your defense increases by {treasure['defense_increase']}. Your defense is now {player_defense}.")
+        print(f"You found a {treasure['type']}! Your defense increases by {treasure['defense_increase']}. Your defense is now {player_defense}.")
     return player_health, player_attack, player_defense
 
 
+# Level up function
+def level_up(player_level, player_health, player_attack, player_defense):
+    player_level += 1
+    player_health = int(player_health * 1.1)
+    player_attack = int(player_attack * 1.1)
+    player_defense = int(player_defense * 1.1)
+    print(f"\nLevel up! You are now level {player_level}.")
+    print(f"New stats - Health: {player_health}, Attack: {player_attack}, Defense: {player_defense}\n")
+    return player_level, player_health, player_attack, player_defense
+
+
 # Start combat
-def combat(player_health, player_attack, player_defense, player_attacks):
-    enemy = create_enemy()
+def combat(player_health, player_attack, player_defense, player_attacks, player_level):
+    enemy = create_enemy(player_level)
     print(f"\nA wild {enemy['name']} appears!")
     print(f"Enemy stats - Health: {enemy['health']}, Attack: {enemy['attack']}, Defense: {enemy['defense']}\n")
 
@@ -120,15 +150,14 @@ def combat(player_health, player_attack, player_defense, player_attacks):
         if player_roll > enemy_roll:
             damage = player_roll - enemy_roll
             enemy['health'] -= damage
-            print(
-                f"{player_name} used {chosen_attack} and hit the {enemy['name']}, {damage} damage dealt! Enemy health reduced to {enemy['health']}.")
+            print(f"{player_name} used {chosen_attack} and hit the {enemy['name']}, {damage} damage dealt! Enemy health reduced to {enemy['health']}.")
         else:
             print("Your attack missed!")
 
         # Check if enemy is defeated
         if enemy['health'] <= 0:
             print(f"You defeated the {enemy['name']}!\n")
-            break
+            return player_health, True  # Return True indicating victory
 
         # Enemy's turn - Randomly choose an attack
         enemy_attack = random.choice(list(enemy['attacks'].keys()))
@@ -140,32 +169,30 @@ def combat(player_health, player_attack, player_defense, player_attacks):
         if enemy_roll > player_roll:
             damage = enemy_roll - player_roll
             player_health -= damage
-            print(
-                f"The {enemy['name']} used {enemy_attack} and dealt {damage} damage! Your health is now {player_health}.")
+            print(f"The {enemy['name']} used {enemy_attack} and dealt {damage} damage! Your health is now {player_health}.")
         else:
             print(f"The {enemy['name']}'s attack missed!")
 
         # Check if player is defeated
         if player_health <= 0:
             print("You have been defeated! Game Over.\n")
-            break
+            return player_health, False  # Return False indicating loss
 
-    return player_health
+    return player_health, False
 
 
 # Game loop
 while player_health > 0:
-    player_health = combat(player_health, player_attack, player_defense, player_attacks)
-    if player_health > 0:
+    player_health, victory = combat(player_health, player_attack, player_defense, player_attacks, player_level)
+    if victory:
         print("Congratulations, you survived this battle!")
+        player_level, player_health, player_attack, player_defense = level_up(player_level, player_health, player_attack, player_defense)
 
         # Offer the player a choice to continue or find treasure
-        next_step = input(
-            "Do you want to continue deeper into the forest for another battle, or search for treasure? (battle/treasure): ").strip().lower()
+        next_step = input("Do you want to continue deeper into the forest for another battle, or search for treasure? (battle/treasure): ").strip().lower()
         if next_step == 'treasure':
-            treasure = find_treasure()
-            player_health, player_attack, player_defense = apply_treasure(treasure, player_health, player_attack,
-                                                                          player_defense)
+            treasure = find_treasure(player_level)  # Pass player level to find_treasure
+            player_health, player_attack, player_defense = apply_treasure(treasure, player_health, player_attack, player_defense)
         elif next_step == 'battle':
             print("\nYou venture further into the forest and prepare for another battle...")
         else:
