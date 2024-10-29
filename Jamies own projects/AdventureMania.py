@@ -11,94 +11,111 @@ screen_height = 720
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Define desired sizes
-background_size = (1280,720)  # screen size
-swordsman_size = (100, 150)    # size for the swordsman sprite
-archer_size = (100, 150)       # size for the swordsman sprite
-wizard_size = (100, 150)       # size for the swordsman sprite
-goblin_size = (80, 120)        # size for the swordsman sprite
-orc_size = (100, 150)          # size for the swordsman sprite
-dark_wizard_size = (100, 150)  # size for the swordsman sprite
+background_size = (1280, 720)  # screen size
+swordsman_size = (100, 150)  # size for the swordsman sprite
+archer_size = (100, 150)  # size for the archer sprite
+wizard_size = (100, 150)  # size for the wizard sprite
+enemy_size = (100, 150)  # size for enemy sprites
 
 # Load images
 base_path = os.path.dirname(__file__)
 background_image = pygame.image.load(os.path.join(base_path, 'images', 'forest_background.jpg'))
-swordsman_sprite = pygame.image.load(os.path.join(base_path, 'images', 'swordsman_sprite.gif'))
-archer_sprite = pygame.image.load(os.path.join(base_path, 'images', 'archer_sprite.gif'))
-wizard_sprite = pygame.image.load(os.path.join(base_path, 'images', 'wizard_sprite.gif'))
+swordsman_sprite = pygame.image.load(os.path.join(base_path, 'images', 'swordsman.png'))
+archer_sprite = pygame.image.load(os.path.join(base_path, 'images', 'brawler.png'))
+wizard_sprite = pygame.image.load(os.path.join(base_path, 'images', 'wizard.png'))
 
-# Load enemy sprites
-goblin_sprite = pygame.image.load(os.path.join(base_path, 'images', 'goblin_sprite.gif'))
-orc_sprite = pygame.image.load(os.path.join(base_path, 'images', 'orc_sprite.gif'))
-dark_wizard_sprite = pygame.image.load(os.path.join(base_path, 'images', 'dark_wizard_sprite.gif'))
+# Load enemy images
+goblin_sprite = pygame.image.load(os.path.join(base_path, 'images', 'goblin.png'))
+orc_sprite = pygame.image.load(os.path.join(base_path, 'images', 'alien.png'))
+dark_wizard_sprite = pygame.image.load(os.path.join(base_path, 'images', 'witch.png'))
 
 # Scale images to desired sizes
 background_image = pygame.transform.scale(background_image, background_size)
 swordsman_sprite = pygame.transform.scale(swordsman_sprite, swordsman_size)
 archer_sprite = pygame.transform.scale(archer_sprite, archer_size)
 wizard_sprite = pygame.transform.scale(wizard_sprite, wizard_size)
-goblin_sprite = pygame.transform.scale(goblin_sprite, goblin_size)
-orc_sprite = pygame.transform.scale(orc_sprite, orc_size)
-dark_wizard_sprite = pygame.transform.scale(dark_wizard_sprite, dark_wizard_size)
+
+# Scale enemy images
+goblin_sprite = pygame.transform.scale(goblin_sprite, enemy_size)
+orc_sprite = pygame.transform.scale(orc_sprite, enemy_size)
+dark_wizard_sprite = pygame.transform.scale(dark_wizard_sprite, enemy_size)
 
 # Initialize font
 pygame.font.init()
 font = pygame.font.Font(None, 36)
 
-# Print game title
-print('Welcome to AdventureMania!')
-print('New Game')
 
-# User creates their character
-player_name = input('Character Name: ')
-player_class = input('Choose your class (Swordsman, Elf Archer, Wizard): ')
+# Function to display intro screen
+def intro_screen():
+    screen.fill((0, 0, 0))
+    title_text = font.render("Welcome to AdventureMania!", True, (255, 255, 255))
+    new_game_text = font.render("Press Enter to Start a New Game", True, (255, 255, 255))
+    screen.blit(title_text, (screen_width // 2 - title_text.get_width() // 2, screen_height // 2 - 50))
+    screen.blit(new_game_text, (screen_width // 2 - new_game_text.get_width() // 2, screen_height // 2 + 10))
+    pygame.display.flip()
 
-# Define player stats based on class and assign attacks
-if player_class.lower() == 'swordsman':
-    player_health = 100
-    player_attack = 15
-    player_defense = 10
-    player_attacks = {
-        "Sword Strike": 20,
-        "Shield Bash": 10
-    }
-    player_sprite = swordsman_sprite
-elif player_class.lower() == 'elf archer':
-    player_health = 80
-    player_attack = 18
-    player_defense = 8
-    player_attacks = {
-        "Long Bow": 15,
-        "Throw Bomb": 25
-    }
-    player_sprite = archer_sprite
-elif player_class.lower() == 'wizard':
-    player_health = 70
-    player_attack = 20
-    player_defense = 5
-    player_attacks = {
-        "Fireball": 30,
-        "Ice Blast": 15
-    }
-    player_sprite = wizard_sprite
-else:
-    print("Invalid class! Defaulting to Swordsman.")
-    player_class = 'Swordsman'
-    player_health = 100
-    player_attack = 15
-    player_defense = 10
-    player_attacks = {
-        "Sword Strike": 20,
-        "Shield Bash": 10
-    }
-    player_sprite = swordsman_sprite
+    # Wait for user to press Enter
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:  # Enter key
+                    waiting = False
 
-# Initialize player level
-player_level = 1
 
-print(f"\nWelcome, {player_name} the {player_class}!")
-print(f"Stats - Level: {player_level}, Health: {player_health}, Attack: {player_attack}, Defense: {player_defense}\n")
+# Function to get player name
+def get_player_name():
+    player_name = ""
+    while True:
+        screen.fill((0, 0, 0))
+        name_text = font.render(f"Enter your character name: {player_name}", True, (255, 255, 255))
+        screen.blit(name_text, (screen_width // 2 - name_text.get_width() // 2, screen_height // 2))
+        pygame.display.flip()
 
-print(f"{player_name} Is walking through a forest..")
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:  # Enter key
+                    if player_name:  # Ensure name is not empty
+                        return player_name
+                elif event.key == pygame.K_BACKSPACE:
+                    player_name = player_name[:-1]  # Remove last character
+                else:
+                    player_name += event.unicode  # Add character
+
+
+# Function to select class
+def class_selection_screen():
+    classes = ["Swordsman", "Brawler", "Wizard"]
+    selected_class = None
+
+    while selected_class is None:
+        screen.fill((0, 0, 0))
+        title_text = font.render("Choose your class:", True, (255, 255, 255))
+        screen.blit(title_text, (screen_width // 2 - title_text.get_width() // 2, screen_height // 2 - 100))
+
+        for index, player_class in enumerate(classes):
+            class_text = font.render(f"{index + 1}. {player_class}", True, (255, 255, 255))
+            screen.blit(class_text,
+                        (screen_width // 2 - class_text.get_width() // 2, screen_height // 2 - 50 + index * 50))
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key in [pygame.K_1, pygame.K_2, pygame.K_3]:
+                    selected_class = classes[int(event.key) - pygame.K_1]
+
+    return selected_class
+
 
 # Function to simulate dice roll
 def roll_dice(sides=6):
@@ -108,9 +125,12 @@ def roll_dice(sides=6):
 # Create an enemy and scale its stats based on player level
 def create_enemy(player_level):
     enemies = [
-        {"name": "Goblin", "base_health": 35, "base_attack": 10, "base_defense": 5, "attacks": {"Claw Swipe": 8, "Poison Spit": 12}, "sprite": goblin_sprite},
-        {"name": "Orc", "base_health": 60, "base_attack": 12, "base_defense": 7, "attacks": {"Club Smash": 15, "War Cry": 5}, "sprite": orc_sprite},
-        {"name": "Dark Wizard", "base_health": 50, "base_attack": 15, "base_defense": 3, "attacks": {"Shadow Bolt": 20, "Curse": 10}, "sprite": dark_wizard_sprite}
+        {"name": "Goblin", "base_health": 35, "base_attack": 10, "base_defense": 5,
+         "attacks": {"Claw Swipe": 8, "Poison Spit": 12}, "sprite": goblin_sprite},
+        {"name": "Alien", "base_health": 60, "base_attack": 12, "base_defense": 7,
+         "attacks": {"Ray Gun": 15, "Probe": 5}, "sprite": orc_sprite},
+        {"name": "Witch", "base_health": 50, "base_attack": 15, "base_defense": 3,
+         "attacks": {"Hex": 20, "Curse": 10}, "sprite": dark_wizard_sprite}
     ]
     enemy = random.choice(enemies)
     enemy['health'] = int(enemy['base_health'] * (1 + player_level * 0.1))
@@ -130,109 +150,144 @@ def draw_health_bars(player_health, enemy_health, enemy_base_health):
     pygame.draw.rect(screen, (255, 0, 0), (500, 350, enemy_health_bar_width, 20))
 
 
+# Function to draw the text box
+def draw_text_box(messages):
+    pygame.draw.rect(screen, (0, 0, 0), (100, 400, 1080, 200))  # Draw the text box background
+    for i, message in enumerate(messages):
+        text_surface = font.render(message, True, (255, 255, 255))
+        screen.blit(text_surface, (110, 410 + i * 30))  # Spacing between messages
+
+
 # Combat function
-def combat(player_health, player_attack, player_defense, player_attacks, player_level):
+def combat(player_name, player_class, player_health, player_attack, player_defense, player_attacks, player_level):
     enemy = create_enemy(player_level)
     enemy_sprite = enemy['sprite']
     print(f"\nA wild {enemy['name']} appears!")
+    messages = []
+
+    # Load player sprite based on class
+    if player_class.lower() == 'swordsman':
+        player_sprite = swordsman_sprite
+    elif player_class.lower() == 'brawler':
+        player_sprite = archer_sprite
+    elif player_class.lower() == 'wizard':
+        player_sprite = wizard_sprite
 
     while player_health > 0 and enemy['health'] > 0:
+        # Display choices
+        messages.append(f"Choose your attack: ")
+        messages.append(f"1. {list(player_attacks.keys())[0]}")
+        messages.append(f"2. {list(player_attacks.keys())[1]}")
+        draw_text_box(messages)
+
+        pygame.display.flip()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return player_health, False
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:  # "Sword Strike"
-                    chosen_attack = "Sword Strike"
-                elif event.key == pygame.K_2 and player_class.lower() == 'elf archer':  # "Long Bow"
-                    chosen_attack = "Long Bow"
-                elif event.key == pygame.K_3 and player_class.lower() == 'wizard':  # "Fireball"
-                    chosen_attack = "Fireball"
-                else:
-                    print("Invalid choice! Defaulting to a basic attack.")
-                    chosen_attack = list(player_attacks.keys())[0]
+                if player_class.lower() == 'swordsman':
+                    if event.key == pygame.K_1:
+                        chosen_attack = "Sword Strike"
+                        attack_power = player_attacks[chosen_attack]
+                    elif event.key == pygame.K_2:
+                        chosen_attack = "Shield Bash"
+                        attack_power = player_attacks[chosen_attack]
+                elif player_class.lower() == 'brawler':
+                    if event.key == pygame.K_1:
+                        chosen_attack = "Punch"
+                        attack_power = player_attacks[chosen_attack]
+                    elif event.key == pygame.K_2:
+                        chosen_attack = "Kick"
+                        attack_power = player_attacks[chosen_attack]
+                elif player_class.lower() == 'wizard':
+                    if event.key == pygame.K_1:
+                        chosen_attack = "Fireball"
+                        attack_power = player_attacks[chosen_attack]
+                    elif event.key == pygame.K_2:
+                        chosen_attack = "Ice Shard"
+                        attack_power = player_attacks[chosen_attack]
 
-                if chosen_attack in player_attacks:
-                    attack_power = player_attacks[chosen_attack]
-                else:
-                    print("Invalid choice! Defaulting to a basic attack.")
-                    chosen_attack = list(player_attacks.keys())[0]
-                    attack_power = player_attacks[chosen_attack]
-
-                # Player's attack roll
-                player_roll = roll_dice(20) + attack_power
+                # Player's turn
+                player_roll = roll_dice(20) + player_attack
                 enemy_roll = roll_dice(20) + enemy['defense']
                 if player_roll > enemy_roll:
-                    damage = player_roll - enemy_roll
+                    damage = player_roll - enemy_roll + attack_power
                     enemy['health'] -= damage
-                    print(f"{player_name} used {chosen_attack} and hit the {enemy['name']}, {damage} damage dealt! Enemy health reduced to {enemy['health']}.")
+                    messages.append(
+                        f"{player_name} used {chosen_attack} and hit the {enemy['name']}, {damage} damage dealt! Enemy health reduced to {enemy['health']}.")
                 else:
-                    print("Your attack missed!")
+                    messages.append("Your attack missed!")
 
                 # Check if enemy is defeated
                 if enemy['health'] <= 0:
-                    print(f"You defeated the {enemy['name']}!\n")
+                    messages.append(f"You defeated the {enemy['name']}!\n")
+                    draw_text_box(messages)
+                    pygame.display.flip()
+                    pygame.time.delay(2000)  # Wait before returning
                     return player_health, True  # Return True indicating victory
 
                 # Enemy's turn - Randomly choose an attack
                 enemy_attack = random.choice(list(enemy['attacks'].keys()))
-                enemy_attack_power = enemy['attacks'][enemy_attack]
+                enemy_damage = enemy['attacks'][enemy_attack]
+                player_health -= enemy_damage
+                messages.append(
+                    f"The {enemy['name']} used {enemy_attack} and dealt {enemy_damage} damage! Your health is now {player_health}.")
 
-                # Enemy's attack roll
-                enemy_roll = roll_dice(20) + enemy_attack_power
-                player_roll = roll_dice(20) + player_defense
-                if enemy_roll > player_roll:
-                    damage = enemy_roll - player_roll
-                    player_health -= damage
-                    print(f"The {enemy['name']} used {enemy_attack} and dealt {damage} damage! Your health is now {player_health}.")
-                else:
-                    print(f"The {enemy['name']}'s attack missed!")
+                draw_text_box(messages)
+                pygame.display.flip()
+                pygame.time.delay(2000)  # Wait before the next round
+                messages.clear()  # Clear messages for the next round
 
-                # Check if player is defeated
-                if player_health <= 0:
-                    print("You have been defeated! Game Over.\n")
-                    return player_health, False  # Return False indicating loss
-
-        # Drawing sprites
-        screen.blit(background_image, (0, 0))
-        screen.blit(player_sprite, (100, 400))
-        screen.blit(enemy_sprite, (500, 400))  # Display the enemy sprite
-
-        # Display player and enemy health bars
-        draw_health_bars(player_health, enemy['health'], enemy['base_health'])
-
-        # Display player stats
-        player_text = font.render(f"{player_name} - Health: {player_health}", True, (255, 255, 255))
-        screen.blit(player_text, (50, 50))
-
+    if player_health <= 0:
+        messages.append("You have been defeated!")
+        draw_text_box(messages)
         pygame.display.flip()
+        pygame.time.delay(2000)  # Wait before quitting
+        return 0, False  # Player defeated
 
-    return player_health, False
 
 # Main game loop
-running = True
-while player_health > 0 and running:
-    player_health, victory = combat(player_health, player_attack, player_defense, player_attacks, player_level)
-    if victory:
-        player_level += 1  # Leveling up (expand as needed)
-    else:
-        running = False  # End the game if player is defeated
+def main():
+    intro_screen()
+    player_name = get_player_name()
+    player_class = class_selection_screen()
 
-    # Clear the screen
-    screen.fill((0, 0, 0))
+    # Define player stats based on class
+    if player_class.lower() == 'swordsman':
+        player_health = 100
+        player_attack = 10
+        player_defense = 5
+        player_attacks = {
+            "Sword Strike": 5,
+            "Shield Bash": 3  # Example second attack
+        }
+    elif player_class.lower() == 'brawler':
+        player_health = 90
+        player_attack = 12
+        player_defense = 3
+        player_attacks = {
+            "Punch": 3,
+            "Kick": 4  # Example second attack
+        }
+    elif player_class.lower() == 'wizard':
+        player_health = 80
+        player_attack = 15
+        player_defense = 2
+        player_attacks = {
+            "Fireball": 10,
+            "Ice Shard": 6  # Example second attack
+        }
 
-    # Draw the background and sprites
-    screen.blit(background_image, (0, 0))  # Draw the background
-    screen.blit(swordsman_sprite, (100, 400))  # Position for the swordsman sprite
-    screen.blit(archer_sprite, (250, 400))      # Position for the archer sprite
-    screen.blit(wizard_sprite, (400, 400))      # Position for the wizard sprite
-    screen.blit(goblin_sprite, (550, 400))      # Position for the goblin sprite
-    screen.blit(orc_sprite, (700, 400))          # Position for the orc sprite
-    screen.blit(dark_wizard_sprite, (850, 400))  # Position for the dark wizard sprite
+    player_level = 1
 
-    # Update the display
-    pygame.display.flip()
+    # Start combat
+    combat(player_name, player_class, player_health, player_attack, player_defense, player_attacks, player_level)
 
-# Quit Pygame
-pygame.quit()
+    pygame.quit()
+
+
+if __name__ == "__main__":
+    main()
