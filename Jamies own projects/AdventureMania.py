@@ -22,14 +22,14 @@ dark_wizard_size = (100, 150)  # size for the swordsman sprite
 # Load images
 base_path = os.path.dirname(__file__)
 background_image = pygame.image.load(os.path.join(base_path, 'images', 'forest_background.jpg'))
-swordsman_sprite = pygame.image.load(os.path.join(base_path, 'images', 'swordsman_sprite.gif'))
-archer_sprite = pygame.image.load(os.path.join(base_path, 'images', 'archer_sprite.gif'))
-wizard_sprite = pygame.image.load(os.path.join(base_path, 'images', 'wizard_sprite.gif'))
+swordsman_sprite = pygame.image.load(os.path.join(base_path, 'images', 'swordsman.png'))
+archer_sprite = pygame.image.load(os.path.join(base_path, 'images', 'brawler.png'))
+wizard_sprite = pygame.image.load(os.path.join(base_path, 'images', 'wizard.png'))
 
 # Load enemy sprites
-goblin_sprite = pygame.image.load(os.path.join(base_path, 'images', 'goblin_sprite.gif'))
-orc_sprite = pygame.image.load(os.path.join(base_path, 'images', 'orc_sprite.gif'))
-dark_wizard_sprite = pygame.image.load(os.path.join(base_path, 'images', 'dark_wizard_sprite.gif'))
+goblin_sprite = pygame.image.load(os.path.join(base_path, 'images', 'goblin.png'))
+orc_sprite = pygame.image.load(os.path.join(base_path, 'images', 'alien.png'))
+dark_wizard_sprite = pygame.image.load(os.path.join(base_path, 'images', 'witch.png'))
 
 # Scale images to desired sizes
 background_image = pygame.transform.scale(background_image, background_size)
@@ -50,7 +50,7 @@ print('New Game')
 
 # User creates their character
 player_name = input('Character Name: ')
-player_class = input('Choose your class (Swordsman, Elf Archer, Wizard): ')
+player_class = input('Choose your class (Swordsman, Brawler, Wizard): ')
 
 # Define player stats based on class and assign attacks
 if player_class.lower() == 'swordsman':
@@ -58,17 +58,17 @@ if player_class.lower() == 'swordsman':
     player_attack = 15
     player_defense = 10
     player_attacks = {
-        "Sword Strike": 20,
-        "Shield Bash": 10
+        "Sword Strike": 25,
+        "Shield Bash": 15
     }
     player_sprite = swordsman_sprite
-elif player_class.lower() == 'elf archer':
+elif player_class.lower() == 'brawler':
     player_health = 80
     player_attack = 18
     player_defense = 8
     player_attacks = {
-        "Long Bow": 15,
-        "Throw Bomb": 25
+        "Punch": 20,
+        "Kick": 20
     }
     player_sprite = archer_sprite
 elif player_class.lower() == 'wizard':
@@ -77,7 +77,7 @@ elif player_class.lower() == 'wizard':
     player_defense = 5
     player_attacks = {
         "Fireball": 30,
-        "Ice Blast": 15
+        "Spell": 10
     }
     player_sprite = wizard_sprite
 else:
@@ -87,8 +87,8 @@ else:
     player_attack = 15
     player_defense = 10
     player_attacks = {
-        "Sword Strike": 20,
-        "Shield Bash": 10
+        "Sword Strike": 25,
+        "Shield Bash": 15
     }
     player_sprite = swordsman_sprite
 
