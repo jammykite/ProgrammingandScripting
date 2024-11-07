@@ -37,8 +37,22 @@ for key in enemy_images:
     enemy_images[key] = pygame.transform.scale(enemy_images[key], (150, 150))
 
 
-# Function to render text on screen
-def draw_text(text, position, color=WHITE):
+# Function to render text on screen with black outline
+def draw_text(text, position, color=WHITE, outline_color=BLACK, outline_width=2):
+    # Render the outline text first
+    outline_text = font.render(text, True, outline_color)
+
+    # Draw the outline text in all 8 directions (N, NE, E, SE, S, SW, W, NW)
+    screen.blit(outline_text, (position[0] - outline_width, position[1] - outline_width))  # Top-left
+    screen.blit(outline_text, (position[0] + outline_width, position[1] - outline_width))  # Top-right
+    screen.blit(outline_text, (position[0] - outline_width, position[1] + outline_width))  # Bottom-left
+    screen.blit(outline_text, (position[0] + outline_width, position[1] + outline_width))  # Bottom-right
+    screen.blit(outline_text, (position[0] - outline_width, position[1]))  # Left
+    screen.blit(outline_text, (position[0] + outline_width, position[1]))  # Right
+    screen.blit(outline_text, (position[0], position[1] - outline_width))  # Top
+    screen.blit(outline_text, (position[0], position[1] + outline_width))  # Bottom
+
+    # Now render the actual text in the desired color over the outline
     text_surface = font.render(text, True, color)
     screen.blit(text_surface, position)
 
@@ -186,16 +200,16 @@ def combat(player, player_level):
     while player["health"] > 0 and enemy["health"] > 0:
         screen.fill(BLACK)
         screen.blit(background_img, (0, 0))
-        screen.blit(character_images[player["class"]], (50, 300))
-        screen.blit(enemy_images[enemy["name"]], (600, 300))  # Show the correct enemy image
+        screen.blit(character_images[player["class"]], (75, 300))
+        screen.blit(enemy_images[enemy["name"]], (470, 350))  # Show the correct enemy image
 
         # Draw health bars
         draw_health_bar(player["health"], player["max_health"], (50, 50))
-        draw_health_bar(enemy["health"], enemy["max_health"], (600, 50))
+        draw_health_bar(enemy["health"], enemy["max_health"], (500, 50))
 
         # Display health text
         draw_text(f"Player Health: {player['health']}", (50, 20))
-        draw_text(f"Enemy Health: {enemy['health']}", (600, 20))
+        draw_text(f"Enemy Health: {enemy['health']}", (500, 20))
 
         if choosing_action:
             # Display available attacks and highlight selected one
