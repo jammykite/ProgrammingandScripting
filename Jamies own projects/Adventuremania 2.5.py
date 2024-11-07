@@ -125,7 +125,7 @@ def character_creation():
         # Display class options and highlight the selected one
         for i, option in enumerate(class_options):
             color = WHITE if i == selected_class else (100, 100, 100)
-            draw_text(option, (300, 225 + i * 40), color)
+            draw_text(option, (300, 220 + i * 40), color)
 
         # Show selected character image
         screen.blit(character_images[class_options[selected_class]], (450, 200))
@@ -213,22 +213,22 @@ def combat(player, player_level):
 
         if choosing_action:
             # Display available attacks and highlight selected one
-            draw_text("Choose your attack:", (50, 150))
+            draw_text("Choose your attack:", (35, 450))
             for i, action in enumerate(player_actions):
                 color = WHITE if i == selected_action else (100, 100, 100)
-                draw_text(action, (50, 200 + i * 40), color)
+                draw_text(action, (70, 485 + i * 40), color)
         else:
             # Display attack and damage outcome
             player_damage = player["attacks"][player_actions[selected_action]]
             enemy["health"] -= max(player_damage - enemy["defense"], 0)
-            draw_text(f"{player['name']} used {player_actions[selected_action]}!", (50, 200))
+            draw_text(f"{player['name']} used {player_actions[selected_action]}!", (275, 200))
             pygame.display.flip()
             pygame.time.delay(1000)
 
             if enemy["health"] > 0:
                 enemy_damage = enemy["attack"]
                 player["health"] -= max(enemy_damage - player["defense"], 0)
-                draw_text(f"{enemy['name']} attacks for {enemy_damage} damage!", (50, 250))
+                draw_text(f"{enemy['name']} attacks for {enemy_damage} damage!", (260, 250))
                 pygame.display.flip()
                 pygame.time.delay(1000)
 
