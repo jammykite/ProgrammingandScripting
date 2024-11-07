@@ -71,8 +71,8 @@ def intro_screen():
     while running:
         screen.fill(BLACK)
         screen.blit(intro_background, (0, 0))  # Display intro background
-        draw_text("Welcome to Adventuremania", (250, 200))
-        draw_text("Press any key to start a new game", (250, 300))
+        draw_text("Welcome to ADVENTUREMANIA!", (230, 200))
+        draw_text("Press any key to start a new game", (225, 250))
 
         pygame.display.flip()
 
@@ -93,8 +93,8 @@ def get_text_input(prompt):
     while entering_text:
         screen.fill(BLACK)
         screen.blit(intro_background, (0, 0))
-        draw_text(prompt, (50, 150))
-        draw_text(user_text, (50, 200))
+        draw_text(prompt, (250, 150))
+        draw_text(user_text, (370, 200))
         pygame.display.flip()
 
         for event in pygame.event.get():
