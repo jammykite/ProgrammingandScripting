@@ -16,6 +16,9 @@ font = pygame.font.Font(None, 36)
 # Load Images
 background_img = pygame.image.load('forest_background.png').convert()
 background_img = pygame.transform.scale(background_img, (800, 600))
+intro_background = pygame.image.load('intro_background.png').convert()  # New intro background
+intro_background = pygame.transform.scale(intro_background, (800, 600))
+
 character_images = {
     "Swordsman": pygame.image.load('swordsman.png').convert_alpha(),
     "Brawler": pygame.image.load('brawler.png').convert_alpha(),
@@ -48,13 +51,34 @@ def draw_health_bar(current_health, max_health, position, bar_width=200, bar_hei
     pygame.draw.rect(screen, GREEN, (*position, health_bar_width, bar_height))  # Current health
 
 
+# Function to display the intro screen
+def intro_screen():
+    running = True
+    while running:
+        screen.fill(BLACK)
+        screen.blit(intro_background, (0, 0))  # Display intro background
+        draw_text("Welcome to Adventuremania", (250, 200))
+        draw_text("Press any key to start a new game", (250, 300))
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                return  # Proceed to the next screen when a key is pressed
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                return  # Proceed to the next screen when the mouse is clicked
+
+
 # Function for text input
 def get_text_input(prompt):
     user_text = ""
     entering_text = True
     while entering_text:
         screen.fill(BLACK)
-        screen.blit(background_img, (0, 0))
+        screen.blit(intro_background, (0, 0))
         draw_text(prompt, (50, 150))
         draw_text(user_text, (50, 200))
         pygame.display.flip()
@@ -81,7 +105,7 @@ def character_creation():
     choosing_class = True
     while choosing_class:
         screen.fill(BLACK)
-        screen.blit(background_img, (0, 0))
+        screen.blit(intro_background, (0, 0))
         draw_text("Choose your class (use arrow keys):", (50, 150))
 
         # Display class options and highlight the selected one
@@ -215,6 +239,7 @@ def combat(player, player_level):
 
 
 # Main setup and game loop
+intro_screen()  # Show intro screen first
 player_name, player_class = character_creation()
 player = setup_player(player_class)
 player["name"] = player_name
