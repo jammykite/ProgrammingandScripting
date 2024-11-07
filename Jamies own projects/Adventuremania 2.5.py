@@ -120,15 +120,15 @@ def character_creation():
     while choosing_class:
         screen.fill(BLACK)
         screen.blit(intro_background, (0, 0))
-        draw_text("Choose your class (use arrow keys):", (50, 150))
+        draw_text("Choose your class (use arrow keys):", (220, 150))
 
         # Display class options and highlight the selected one
         for i, option in enumerate(class_options):
             color = WHITE if i == selected_class else (100, 100, 100)
-            draw_text(option, (50, 200 + i * 40), color)
+            draw_text(option, (300, 225 + i * 40), color)
 
         # Show selected character image
-        screen.blit(character_images[class_options[selected_class]], (500, 150))
+        screen.blit(character_images[class_options[selected_class]], (450, 200))
         pygame.display.flip()
 
         for event in pygame.event.get():
