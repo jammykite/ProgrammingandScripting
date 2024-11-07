@@ -23,3 +23,4 @@ list_ages_1 = [20,21,24,13,15,19.22]
 average_age = average_age(list_ages_1)
 print(f'The average age is {average_age}')
 
+
