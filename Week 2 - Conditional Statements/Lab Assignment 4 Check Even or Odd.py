@@ -1,8 +1,8 @@
 """
 Write a function called is_even that takes a single integer as a parameter and returns True if the number is even
-and False if its odd
+and False if it is odd
 
-Use a lambda function to accomplish the same task and verifiy that both methods give the same result
+Use a lambda function to accomplish the same task and verify that both methods give the same result
 """
 
 """
@@ -17,7 +17,7 @@ def is_even(number):
 
 # Define the lambda function for the same task
 is_even_lambda = lambda number: number % 2 == 0
-3
+
 # Request user input
 user_input = int(input("Enter a number: "))
 
