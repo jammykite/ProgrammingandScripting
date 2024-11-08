@@ -235,15 +235,19 @@ def combat(player, player_level):
         else:
             # Display attack and damage outcome
             player_damage = player["attacks"][player_actions[selected_action]]
-            enemy["health"] -= max(player_damage - enemy["defense"], 0)
-            draw_text(f"{player['name']} used {player_actions[selected_action]}!", (280, 200))
+            # Calculate the damage dealt to the enemy
+            damage_dealt = max(player_damage - enemy["defense"], 0)
+            enemy["health"] -= damage_dealt  # Subtract the damage from the enemy's health
+            draw_text(f"{player['name']} used {player_actions[selected_action]} for {damage_dealt} damage!", (235, 200))
             pygame.display.flip()
             pygame.time.delay(1000)
 
             if enemy["health"] > 0:
-                enemy_damage = enemy["attack"]
+                # Enemy attack logic
+                enemy_action = random.choice(list(enemy['attacks'].keys()))
+                enemy_damage = enemy['attacks'][enemy_action]
                 player["health"] -= max(enemy_damage - player["defense"], 0)
-                draw_text(f"{enemy['name']} attacks for {enemy_damage} damage!", (250, 250))
+                draw_text(f"{enemy['name']} used {enemy_action} for {enemy_damage} damage!", (235, 250))
                 pygame.display.flip()
                 pygame.time.delay(1000)
 
