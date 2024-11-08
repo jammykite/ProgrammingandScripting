@@ -20,7 +20,7 @@ intro_background = pygame.image.load('intro_background.png').convert()  # New in
 intro_background = pygame.transform.scale(intro_background, (800, 600))
 
 character_images = {
-    "Swordsman": pygame.image.load('swordsman.png').convert_alpha(),
+    "Knight": pygame.image.load('swordsman.png').convert_alpha(),
     "Brawler": pygame.image.load('brawler.png').convert_alpha(),
     "Wizard": pygame.image.load('wizard.png').convert_alpha(),
 }
@@ -66,8 +66,8 @@ def intro_screen():
     while running:
         screen.fill(BLACK)
         screen.blit(intro_background, (0, 0))  # Display intro background
-        draw_text("Welcome to ADVENTUREMANIA!", (230, 200))
-        draw_text("Press any key to start a new game", (225, 350))
+        draw_text("WELCOME TO ADVENTUREMANIA!", (210, 250))
+        draw_text("Press any key to start", (290, 350))
 
         pygame.display.flip()
 
@@ -109,7 +109,7 @@ def get_text_input(prompt):
 # Character creation screen with images
 def character_creation():
     player_name = get_text_input("Enter your character's name:")
-    class_options = ["Swordsman", "Brawler", "Wizard"]
+    class_options = ["Knight", "Brawler", "Wizard"]
     selected_class = 0
     choosing_class = True
     while choosing_class:
@@ -144,7 +144,7 @@ def character_creation():
 
 # Player setup based on class
 def setup_player(player_class):
-    if player_class == 'Swordsman':
+    if player_class == 'Knight':
         return {"health": 100, "max_health": 100, "attack": 15, "defense": 10,
                 "attacks": {"Sword Strike": 20, "Shield Bash": 10}}
     elif player_class == 'Brawler':
@@ -161,7 +161,7 @@ def setup_player(player_class):
 def enemy_appears_screen():
     screen.fill(BLACK)
     draw_text(f"One day.. {player_name} is walking through a magical forest.", (100, 200))
-    draw_text("An enemy appears out of nowhere and attacks!!", (110, 250))
+    draw_text("An enemy appears out of nowhere and attacks!!", (115, 250))
     draw_text("Press any key to continue...", (230, 500))
 
     pygame.display.flip()
