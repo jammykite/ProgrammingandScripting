@@ -32,9 +32,9 @@ enemy_images = {
 
 # Scale character and enemy images
 for key in character_images:
-    character_images[key] = pygame.transform.scale(character_images[key], (150, 150))
+    character_images[key] = pygame.transform.scale(character_images[key], (200, 200))
 for key in enemy_images:
-    enemy_images[key] = pygame.transform.scale(enemy_images[key], (150, 150))
+    enemy_images[key] = pygame.transform.scale(enemy_images[key], (200, 200))
 
 
 # Function to render text on screen with black outline
@@ -228,10 +228,10 @@ def combat(player, player_level):
 
         if choosing_action:
             # Display available attacks and highlight selected one
-            draw_text("Choose your attack:", (35, 450))
+            draw_text("Choose your attack:", (35, 475))
             for i, action in enumerate(player_actions):
                 color = WHITE if i == selected_action else (100, 100, 100)
-                draw_text(action, (70, 485 + i * 40), color)
+                draw_text(action, (70, 505 + i * 40), color)
         else:
             # Display attack and damage outcome
             player_damage = player["attacks"][player_actions[selected_action]]
