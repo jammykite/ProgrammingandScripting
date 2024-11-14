@@ -28,7 +28,8 @@ def calculate(num1, num2, operation):
             return "Error: Cannot divide by zero"
         return num1 / num2
     else:
-        raise "Invalid operator"
+        raise 6
+        "Invalid operator"
 
 # Lambda functions for each operation
 operations = {
