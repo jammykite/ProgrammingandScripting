@@ -23,9 +23,7 @@ Step Two: Calculate system status based on users input
 Step Three: Print results
 """
 
-
-
-# Start loop, This allows the user to start over if they wish at the end
+# Start loop, This allows the user to start over if they wish to at the end
 while True:
     # Print introduction text
     print("Hello! \n"
@@ -97,5 +95,5 @@ while True:
     # Ask if the user wants to start over
     restart = input('\nThank you for using our service. Type "new" to start again, or any other key to exit: ')
 
-    if restart.lower() != 'new': #If user types 'new', loop will restart. If user types anything else, loop will break
+    if restart.lower() != 'new': # != means 'not equal to', if restart input is not 'new', loop will break
         break  # Exit the loop if the user doesn't want to start over
