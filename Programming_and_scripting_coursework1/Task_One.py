@@ -96,4 +96,5 @@ while True:
     restart = input('\nThank you for using our service. Type "new" to start again, or any other key to exit: ')
 
     if restart.lower() != 'new': # != means 'not equal to', if restart input is not 'new', loop will break
+        print('GoodBye')
         break  # Exit the loop if the user doesn't want to start over
