@@ -19,12 +19,12 @@ print("Welcome to MoodSense! We offer mental wellness solutions")
 #Request that user input their mood using an integer from 1-10
 mood_input = int(input("Please tell me your current mood using a scale from 1-10 with 1 being a bad mood and 10 being the best: "))
 #IF, ELIF, ELSE statements to determine output based on users input
-if 1 <= mood_input <= 3:
+if 1 <= mood_input <= 3: #If user input is between 1 - 3, print below statement
     print("I’m sorry you’re feeling this way. Consider talking to a friend or taking some time for yourself.")
-elif 4 <= mood_input <= 7:
+elif 4 <= mood_input <= 7: #If user input is between 4 - 7, print below statement
     print("It seems like you're having an okay day. Remember to take breaks and focus on self-care.")
-elif 8 <= mood_input <= 10:
+elif 8 <= mood_input <= 10: #If user input is between 8 - 10, print below statement
     print("That’s great to hear! Keep up the positive energy!")
-else:
+else: #Else, ask user to enter a number between 1-10
     print("Please enter a number between 1 and 10.")
 
