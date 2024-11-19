@@ -37,7 +37,8 @@ while True:
 
     # Ask the user for CPU usage, remove % symbol if user enters one, and ensure the value is between 0 and 100
     while True: #This starts a nested loop which allows user input to be validated and displays error message if required
-        cpu_input = input("Please enter your system's CPU usage (%): ") #Request that user inputs their CPU usage
+        # Request that user inputs their CPU usage
+        cpu_input = input("Please enter your system's CPU usage (%): ")
 
         # Check if the input ends with '%'
         if cpu_input.endswith('%'):
@@ -46,7 +47,8 @@ while True:
 
         # Check if the remaining input is a valid number
         if cpu_input.isdigit():
-            cpu_usage = int(cpu_input) #convert user input to an integer, this will be used to determine system status
+            # convert user input to an integer, this will be used to determine system status
+            cpu_usage = int(cpu_input)
 
             # Ensure the CPU usage is between 0 and 100
             if 0 <= cpu_usage <= 100:
@@ -58,7 +60,8 @@ while True:
 
     # Ask the user for memory usage, remove GB characters if user enters them
     while True: #This starts a nested loop which allows user input to be validated and displays error message if required
-        memory_input = input("Please enter your system's memory usage to the nearest GB: ") #Request that user inputs their memory usage
+        # Request that user inputs their memory usage
+        memory_input = input("Please enter your system's memory usage to the nearest GB: ")
 
         # Check if the input ends with 'GB' or 'gb'
         if memory_input.lower().endswith('gb'): #.lower converts users input to lowercase
@@ -67,7 +70,8 @@ while True:
 
         # Check if the remaining input is a whole number
         if memory_input.isdigit():
-            memory_usage = int(memory_input) #convert user input to an integer, this will be used to determine system status
+            # convert user input to an integer, this will be used to determine system status
+            memory_usage = int(memory_input)
             break  # Exit the loop if valid input is entered
         else: #display error message to request whole number
             print("Invalid input. Please enter a whole number, optionally followed by 'GB'.")
