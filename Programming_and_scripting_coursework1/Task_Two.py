@@ -16,7 +16,7 @@ Step Three: Print output
 """
 # Print introduction text
 print("Welcome to MoodSense! We offer mental wellness solutions")
-#Request that user put their mood using an integer from 1-10
+#Request that user input their mood using an integer from 1-10
 mood_input = int(input("Please tell me your current mood using a scale from 1-10 with 1 being a bad mood and 10 being the best: "))
 #IF, ELIF, ELSE statements to determine output based on users input
 if 1 <= mood_input <= 3:
