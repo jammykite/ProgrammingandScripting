@@ -16,15 +16,27 @@ Step Three: Print output
 """
 # Print introduction text
 print("Welcome to MoodSense! We offer mental wellness solutions")
+users_name = input("Please tell me your name: ") #ask users name to personalise responses
+print(f"Hi {users_name.title()}")
 #Request that user input their mood using an integer from 1-10
-mood_input = int(input("Please tell me your current mood using a scale from 1-10 with 1 being a bad mood and 10 being the best: "))
+while True:  # Start a loop, this will prompt user to re-enter their input if non integer is entered
+    mood_input = input("Please tell me your current mood using a scale from 1-10 with 1 being a bad mood and 10 being the best: ")
+    # Check if the input is an integer from 1-10
+    if mood_input.isdigit():
+        mood_input = int(mood_input)  # convert user input to an integer, this will be used to determine response
+        if 1 <= mood_input <= 10:  # Check if user input is 1-10
+            break  # Exit the loop if input is valid
+        else:
+            print("Invalid input. Please tell me your current mood using a scale from 1-10.")
+    else:
+        print("Invalid input. Please enter a numerical value")
+
 #IF, ELIF, ELSE statements to determine output based on users input
 if 1 <= mood_input <= 3: #If user input is between 1 - 3, print below statement
-    print("I’m sorry you’re feeling this way. Consider talking to a friend or taking some time for yourself.")
+    print(f"I’m sorry you’re feeling this way {users_name.title()}. Consider talking to a friend or taking some time for yourself.")
 elif 4 <= mood_input <= 7: #If user input is between 4 - 7, print below statement
-    print("It seems like you're having an okay day. Remember to take breaks and focus on self-care.")
+    print(f"It seems like you're having an okay day {users_name.title()}. Remember to take breaks and focus on self-care.")
 elif 8 <= mood_input <= 10: #If user input is between 8 - 10, print below statement
-    print("That’s great to hear! Keep up the positive energy!")
-else: #Else, ask user to enter a number between 1-10
-    print("Please enter a number between 1 and 10.")
+    print(f"That’s great to hear {users_name.title()}! Keep up the positive energy!")
+
 
