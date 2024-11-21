@@ -6,7 +6,7 @@ Step 2 - calculate the sum of all numbers from 1 to the entered number
 Step 3 - print result
 """
 
-user_input = int(input('Please enter a number: '))
+user_input = int(input('Please enter a whole number: '))
 
 total_sum = user_input * (user_input + 1) //2
 print(total_sum)
