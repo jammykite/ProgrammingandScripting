@@ -27,16 +27,6 @@ while True:  # Start a loop, this will prompt user to re-enter their input if no
         if 1 <= mood_input <= 10:  # Check if user input is 1-10
             break  # Exit the loop if input is valid
         else:
-            print("Invalid input. Please tell me your current mood using a scale from 1-10.")
+            print("Invalid input. Please tell me your current mood using a scale from 1-10.") #response if integer larger than 10 is entered
     else:
-        print("Invalid input. Please enter a numerical value")
-
-#IF, ELIF, ELSE statements to determine output based on users input
-if 1 <= mood_input <= 3: #If user input is between 1 - 3, print below statement
-    print(f"I’m sorry you’re feeling this way {users_name.title()}. Consider talking to a friend or taking some time for yourself.")
-elif 4 <= mood_input <= 7: #If user input is between 4 - 7, print below statement
-    print(f"It seems like you're having an okay day {users_name.title()}. Remember to take breaks and focus on self-care.")
-elif 8 <= mood_input <= 10: #If user input is between 8 - 10, print below statement
-    print(f"That’s great to hear {users_name.title()}! Keep up the positive energy!")
-
-
+     
