@@ -17,7 +17,7 @@ correct_password = "Password123"
 
 # Allow up to three attempts
 for attempt in range(1, 4):
-    # Prompt user for password
+    # Ask user to enter their password
     user_input = input("Enter your password: ")
 
     # Check if the password matches
@@ -27,5 +27,5 @@ for attempt in range(1, 4):
     else:
         print(f"Incorrect password. You have {3 - attempt} attempts left")
 else:
-    # If all attempts are exhausted
+    # If no attempts left
     print("Account blocked, please contact your administrator")
