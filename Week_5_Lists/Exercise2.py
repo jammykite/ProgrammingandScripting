@@ -5,7 +5,7 @@ import random
 # Generate a random list of 500 integers between 125 and 2250
 random_list = [random.randint(125, 2250) for _ in range(500)]
 
-# Print the list (optional, as it might be too long to display fully)
+# Print the list
 print("Random list of 500 integers:")
 print(random_list)
 
