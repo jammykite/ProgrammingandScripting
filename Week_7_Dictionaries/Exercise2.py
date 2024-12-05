@@ -3,20 +3,17 @@ ep1 = {
     'EmployeeID': 221092,
     'EmployeeName': 'Fredrick Zocco',
     'Number of Experience': 2,
-    'Current Position': 'Research Scientist'
-}
+    'Current Position': 'Research Scientist'}
+print(f'Before changes {ep1}')
 
-# New details to update the dictionary
-updates = {
-    'EmployeeID': 69420,
-    'EmployeeName': 'Jamie',
-    'Number of Experience': 1,
-    'Current Position': 'Top G'
-}
+for emp_data in ep1:
+    if emp_data == 'EmployeeID':
+        ep1[emp_data] = '5010'
+    elif emp_data == 'EmployeeName':
+        ep1[emp_data] = 'Jamie'
+    elif emp_data == 'Number of Experience':
+        ep1[emp_data] = 1
+    else:
+        ep1[emp_data] = 'Top G'
 
-# Using a FOR loop to update the dictionary
-for key in ep1.keys():
-    if key in updates:
-        ep1[key] = updates[key]
-
-print(ep1)
+print(f'After changes {ep1}')
