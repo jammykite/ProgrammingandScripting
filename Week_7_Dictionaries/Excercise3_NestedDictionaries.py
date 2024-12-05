@@ -42,6 +42,6 @@ EmployeeData = {
 
 # Calculate and print monthly salaries
 print("Monthly Salaries:")
-for key, data in EmployeeData.items():
-    monthly_salary = data['Salary'] / 12
-    print(f"{data['EmployeeName']}: £{monthly_salary:.2f}")
+for key, salary in EmployeeData.items():
+    monthly_salary = salary['Salary'] / 12
+    print(f"{salary['EmployeeName']}: £{monthly_salary:.2f}")
