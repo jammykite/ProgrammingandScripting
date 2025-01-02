@@ -26,3 +26,32 @@ the original message. Input should also be a string or list
 Step Four: Perform the shift
 Step Five: Print the new shifted message 
 """
+
+
+def cyclic_shift(m, shift):
+    # Check if the input is valid (string or list)
+    if not isinstance(m, (str, list)):
+        raise TypeError("The message must be a string or a list.")
+
+    # Check if the message is empty
+    if len(m) == 0:
+        return m  # If it's empty, return message as is.
+
+    # Get the length of m
+    mlength = len(m)
+
+    # Handle cases where the shift is negative or too large
+    if shift < 0 or shift >= mlength:
+        return m  # Return the original message if shift is invalid.
+
+    # Calculate the effective shift (to handle shifts larger than the message length)
+    effective_shift = shift % mlength  # This makes sure the shift wraps around correctly.
+
+    # Perform the cyclic shift, Take the last 'effective_shift' part and move it to the front
+    shifted_m = m[-effective_shift:] + m[:-effective_shift]
+
+    # Step 7: Return the shifted message
+    return shifted_m
+
+
+
