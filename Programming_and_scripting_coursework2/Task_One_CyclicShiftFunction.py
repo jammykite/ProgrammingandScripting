@@ -55,5 +55,13 @@ def cyclic_shift(m, shift):
     # Step 7: Return the shifted message
     return shifted_m
 
+"""
+tests for the following:
+1. m is a string
+2. m is a list of numbers
+3. m is a list of strings
+4. m is a list of lists
+"""
+
 
 
