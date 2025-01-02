@@ -47,7 +47,9 @@ def cyclic_shift(m, shift):
     # Calculate the effective shift (to handle shifts larger than the message length)
     effective_shift = shift % mlength  # This makes sure the shift wraps around correctly.
 
-    # Perform the cyclic shift, Take the last 'effective_shift' part and move it to the front
+    # Perform the cyclic shift - This creates a new version of m by combining two parts:
+    # 1 - The last effective_shift items of the message.
+    # 2 - The rest of the message, starting from the beginning up to where the first part ends.
     shifted_m = m[-effective_shift:] + m[:-effective_shift]
 
     # Step 7: Return the shifted message
