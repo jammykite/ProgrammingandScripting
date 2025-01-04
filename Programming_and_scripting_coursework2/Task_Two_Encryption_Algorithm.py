@@ -26,6 +26,14 @@ the list of subsequences becomes:
 Implement the keyword encryption algorithm above.
 """
 
-from Task_One_CyclicShiftFunction import cyclic_shift  #import my function from previous task
+from __main__ import cyclic_shift  #import my function from previous task
 
 def encryption_algorithm(key, m):
+    #pad message until length is multiple of 8
+    while len(m) % 8 != 0:
+        m += 'a'
+
+    #Split m into subsequences of 8 characters
+    subsequences = [m[i:i+8] for i in range(0, len(m), 8)]
+
+
