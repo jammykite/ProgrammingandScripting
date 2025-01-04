@@ -25,3 +25,7 @@ the list of subsequences becomes:
 9. Concatenate the subsequences together to form the encrypted message.
 Implement the keyword encryption algorithm above.
 """
+
+from Task_One_CyclicShiftFunction import cyclic_shift  #import my function from previous task
+
+def encryption_algorithm(key, m):
