@@ -29,6 +29,10 @@ Implement the keyword encryption algorithm above.
 from Task_One_CyclicShiftFunction  import cyclic_shift  #import my function from previous task
 
 def encryption_algorithm(key, m):
+    # Verify that the key has at least 6 characters
+    if len(key) != 6:
+        raise ValueError("Key must be 6 characters long.")
+
     #pad message until length is multiple of 8
     while len(m) % 8 != 0:
         m += 'a'
@@ -62,3 +66,4 @@ encrypt_message = encryption_algorithm(key, m)
 
 # Output the encrypted message
 print(f"The encrypted message is: {encrypt_message}")
+
