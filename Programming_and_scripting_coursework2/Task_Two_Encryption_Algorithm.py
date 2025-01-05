@@ -57,7 +57,7 @@ def encryption_algorithm(key, m):
 
     return encrypted_message
 
-# Example usage:
+# User input:
 key = input("Please enter a 6-character encryption key: ")
 m = input("Now enter a message to be encrypted: ")
 
