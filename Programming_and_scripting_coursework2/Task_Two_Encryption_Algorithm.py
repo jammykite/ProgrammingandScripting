@@ -28,6 +28,7 @@ Implement the keyword encryption algorithm above.
 
 from Task_One_CyclicShiftFunction  import cyclic_shift  #import my function from previous task
 
+#def to create a new function
 def encryption_algorithm(key, m):
     # Verify that the key has at least 6 characters
     if len(key) != 6:
@@ -35,9 +36,9 @@ def encryption_algorithm(key, m):
 
     #pad message until length is multiple of 8
     while len(m) % 8 != 0:
-        m += 'a'
+        m += 'a' #while remainder of m divided by 8 is not 0, add 'a' to pad message
 
-    #Split m into subsequences of 8 characters
+    # Slice m into subsequences of 8 characters by iterating over a range with a step of 8.
     subsequences = [m[i:i+8] for i in range(0, len(m), 8)]
 
     #Calculate shift1 from the first two characters of the key
