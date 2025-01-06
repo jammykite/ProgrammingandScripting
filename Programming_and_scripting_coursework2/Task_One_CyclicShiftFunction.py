@@ -57,5 +57,6 @@ def cyclic_shift(m, shift):
     shifted_m = m[-effective_shift:] + m[:-effective_shift]
 
     # Step 7: Return the shifted message
-    return shifted_m
+    return shifted_m #return function offers better flexibility than the print function as it allows output to be
+                        #stored as a variable, written to a file or sent over a network
 

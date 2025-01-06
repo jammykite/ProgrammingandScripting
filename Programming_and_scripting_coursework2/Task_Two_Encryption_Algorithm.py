@@ -42,10 +42,10 @@ def encryption_algorithm(key, m):
     subsequences = [m[i:i+8] for i in range(0, len(m), 8)]
 
     #Calculate shift1 from the first two characters of the key
-    shift1 = (ord(key[0]) + ord(key[1])) % 8
+    shift1 = (ord(key[0]) + ord(key[1])) % 8 #ord function finds the ASCII value
 
     #Perform a right cyclic shift of size shift1 on each subsequence
-    shifted_subsequences = [cyclic_shift(subs, shift1) for subs in subsequences]
+    shifted_subsequences = [cyclic_shift(subs, shift1) for subs in subsequences] #subs=individual 8 character subsequence
 
     #Calculate shift2 from the third and fourth characters of the key
     shift2 = (ord(key[2]) + ord(key[3])) % 3
@@ -54,9 +54,9 @@ def encryption_algorithm(key, m):
     shifted_subsequences2 = cyclic_shift(shifted_subsequences, shift2)
 
     #Concatenate the subsequences together to form the encrypted message
-    encrypted_message = ''.join(shifted_subsequences2)
+    encrypted_message = ''.join(shifted_subsequences2) #join each subsequence into a single string
 
-    return encrypted_message
+    return encrypted_message #return function offers better flexibility than the print function
 
 # User input:
 key = input("Please enter a 6-character encryption key: ")
