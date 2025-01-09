@@ -1,5 +1,4 @@
-# Get the last 20 error events from the system log
-$errorEvents = Get-WinEvent -LogName System -Level Error | Select-Object -First 20
+#!/bin/bash
 
-# Append the errors to the file
-$errorEvents | Out-File -FilePath "C:\Scripts\print_commands.txt" -Append
+#Append a list of all available WMI classes to local file
+powershell -Command "Get-WmiObject -List | Out-File 'C:\Users\50103233\OneDrive - Belfast Metropolitan College\CW Scripts\jamies_local_file.txt' -Append"

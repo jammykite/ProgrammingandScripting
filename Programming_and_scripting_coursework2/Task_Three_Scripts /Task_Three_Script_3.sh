@@ -1,2 +1,5 @@
-# Get all Notepad processes and stop them
-Get-Process notepad | Stop-Process
+#!/bin/bash
+
+# Use taskkill to close all instances of Notepad
+taskkill //IM notepad.exe //F
+

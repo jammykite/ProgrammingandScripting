@@ -1,5 +1,7 @@
-# Find all print-related cmdlets
-$printCommands = Get-Command *print*
+#!/bin/bash 
+
+# Find all commands related to 'print'
+printCommands=$(compgen -c | grep print)
 
 # Output the list to a file
-$printCommands | Out-File -FilePath "C:\Scripts\print_commands.txt"
+echo "$printCommands" > "C:\Users\50103233\OneDrive - Belfast Metropolitan College\CW Scripts\jamies_local_file.txt"

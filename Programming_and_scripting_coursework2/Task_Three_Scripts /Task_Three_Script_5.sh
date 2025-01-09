@@ -1,5 +1,4 @@
-# Get all available WMI classes
-$wmiClasses = Get-WmiObject -List
+#!/bin/bash
 
-# Append the WMI class list to the file
-$wmiClasses | Out-File -FilePath "C:\Scripts\print_commands.txt" -Append
+#Identify what account the spooler is running as (hint: use wmi)
+wmic service where "name='Spooler'" get StartName >> "C:\Users\50103233\OneDrive - Belfast Metropolitan College\CW Scripts\spooler_account.txt"
